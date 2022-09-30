@@ -1,7 +1,5 @@
 module.exports={
-   
-
-    
+    getProductCollection:"product",
 
     
 }

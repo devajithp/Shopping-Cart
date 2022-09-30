@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var hbs= require("express-handlebars");
 var logger = require('morgan');
 var db= require("./config/connection") 
+var fileUpload = require("express-fileupload")
 
 
 var userRouter = require('./routes/user');
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload())
 
 
 
