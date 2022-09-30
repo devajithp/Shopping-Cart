@@ -20,7 +20,17 @@
           <a class="nav-link text-white" href="/cart">Cart</a>
         </li>
          <li class="nav-item dropdown">
+          {{#if user}}
           
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            {{user.Name}}
+          </a>
+           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            
+          </ul>
+          
+          {{else}}
           <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
             Account
           </a>
@@ -28,7 +38,7 @@
             <li><a class="dropdown-item" href="/login">Login</a></li>
             
           </ul>
-         
+          {{/if}}
         </li>
        
       </ul>

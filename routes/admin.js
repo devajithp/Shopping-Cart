@@ -2,13 +2,23 @@ var express = require('express');
 var router = express.Router();
 var productHelpers= require("../Helpers/Product-helpers")
 var promise=require("promise")
+var adminHelpers=require("../Helpers/Admin-helpers")
+
+const verifyLogin=function(req,res,next)
+{
+  if(req.session.adminLoggin)
+  {
+    next()
+  }
+  else
+  {
+      res.render('admin/admin-login',{admin:true})
+  }
+}
 
 
 
-
-
-
-router.get('/', function(req, res, next) {
+router.get('/',verifyLogin, function(req, res, next) {
   
   productHelpers.getProduct().then((product)=>
   {
@@ -74,8 +84,29 @@ router.get('/delete-product/:id',(req,res)=>
     res.redirect("/admin/")
   })
 })
+router.post('/login',(req,res)=>
+{
+  let adminData=req.body;
+  adminHelpers.doLogin(adminData).then((result)=>
+  {
+    req.session.admin=result;
+    if(req.session.admin!=null)
+    {
+    req.session.adminLoggin=true
+    }
+    else
+    {
+      req.session.adminLoggin=false
+    }
+    res.redirect('/admin/')
+  })
+})
+router.get("/logout",(req,res)=>
+{
+  req.session.destroy();
+  res.redirect("/admin/")
 
-
+})
 
 
 
