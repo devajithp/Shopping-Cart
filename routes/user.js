@@ -16,7 +16,7 @@ const verifyLogin=function(req,res,next)
   }
 }
 
-router.get('/',verifyLogin, function(req, res, next) {
+router.get('/', function(req, res, next) {
   let user=req.session.user
   productHelpers.getProduct().then((product)=>
   {
@@ -63,8 +63,76 @@ router.get("/logout",(req,res)=>
   req.session.destroy()
   res.redirect("/")
 })
+router.get("/cart",verifyLogin,(req,res)=>
+{
+   let user=req.session.user
+   userHelpers.getCart(user._id).then((cartItems)=>
+   {
+    userHelpers.getCartWithoutAggregate(user._id).then((cart)=>
+    {
+      
+      let Product=cart.Product
+      if(Product.length>=1)
+      {
+        console.log(cartItems)
+        res.render("user/cart",{admin:false,user,cartItems})
+      }
+      else{
+        res.redirect("/")
+      }
+    })
+    
+   
+   })
+    
+})
+router.get("/addtoCart/:id/:Name/:Price",verifyLogin,(req,res)=>
+{
+  let userId=req.session.user._id;
+  let prodId=req.params.id;
+  let prodName=req.params.Name;
+  let prodPrice=req.params.Price;
+  console.log(prodId,prodName,prodPrice,userId)
+  userHelpers.AddtoCart(prodId,prodName,prodPrice,userId).then(()=>
+  {
+    res.redirect("/")
+  })
+  
+})
+router.get("/decrement/:prodId/:quantity",verifyLogin,(req,res)=>
+{
+  let prodId=req.params.prodId;
+  let userId=req.session.user._id;
+  let quantity=req.params.quantity;
+  console.log(prodId,userId,quantity)
+  userHelpers.decrementQuantity(userId,prodId,quantity).then(()=>
+  {
+    res.redirect("/cart")
+  })    
+})
+router.get("/increment/:prodId/:quantity",verifyLogin,(req,res)=>
+{
+  let userId=req.session.user._id;
+  let prodId=req.params.prodId;
+  let quantity=req.params.quantity;
+  console.log(userId,prodId,quantity)
+  userHelpers.incrementQuantity(userId,prodId,quantity).then(()=>
+  {
+    res.redirect("/cart")
+  })
+})
+router.get("/remove/:prodId/:quantity",verifyLogin,(req,res)=>
+{
+  let userId=req.session.user._id;
+  let prodId=req.params.prodId;
+  let quantity=req.params.quantity;
+  console.log(userId,prodId,quantity)
+  userHelpers.removeProduct(userId,prodId,quantity).then(()=>
+  {
+    res.redirect("/cart")
+  })
 
-
+})
 router.get("/home",(req,res)=>
 {
   res.redirect("/")
