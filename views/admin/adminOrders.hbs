@@ -9,12 +9,14 @@
        
         <h6>{{this.date}}</h6>
         <h6>Total Price: {{this.total}}</h6>
-        <div class="d-flex">
+        <h6>Payment: {{this.Payment}}</h6>
+        
         <h6 id="{{this._id}}"> status : {{this.status}}</h6>
-        <span class="ml-3"> <button class="btn btn-success" onclick="confirmOrder('{{this._id}}')">Confirm Order</button></span>
+        <div class="d-flex">
+        <span class=""> <button class="btn btn-success" onclick="confirmOrder('{{this._id}}')">Confirm Order</button></span>
         <span class="ml-2"> <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')">Cancel Order</button></span>
         </div>
-        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#{{this.date}}">Products and Address</button>
+        <button type="button" class="btn btn-secondary mt-3" data-toggle="collapse" data-target="#{{this.date}}">Products and Address</button>
         <div id="{{this.date}}" class="collapse in "> 
         <h3 style="color: rgb(153, 113, 38);">Products</h3>
         {{#each cartItems}} 

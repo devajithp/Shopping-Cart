@@ -184,6 +184,7 @@ module.exports={
         totalAmount=total[0].totalAmount
        
         let status="Pending with admin"
+        let Payment="COD"
            
             let Orders={
                   userId:userId,
@@ -192,6 +193,7 @@ module.exports={
                   status,
                   cartItems,
                   DeliveryAddress,
+                  Payment
                  }
     
                  db.get().collection(collection.getOrderCollection).insertOne(Orders).then((result)=>
@@ -231,17 +233,48 @@ module.exports={
 
    return new Promise((res,rej)=>
    {
-    console.log(totalPrice)
+    
     var options = {
-        amount: totalPrice,  // amount in the smallest currency unit
+        amount: totalPrice*100,  // amount in the smallest currency unit
         currency: "INR",
-        receipt: ""+orderId
+        receipt: ""+orderId,
       };
+      
       instance.orders.create(options, function(err, order) {
         
         res(order)
       });
    })
+ },
+ verifyPayment: function(details)
+ {
+    return new Promise((res,rej)=>
+    {
+        const crypto = require('crypto')
+        let hmac= crypto.createHmac('sha256','NV0WGo11PM9ylIMhhUELQHjm')
+        hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]'])
+        hmac=hmac.digest('hex')
+        if(hmac==details['payment[razorpay_signature]'])
+        {   console.log("verified")
+            res()
+        }
+        else{
+            rej()
+        }
+    })
+ },
+ changeOrderStatus: function(orderId)
+ {
+    return new Promise((res,rej)=>
+    {
+        db.get().collection(collection.getOrderCollection).updateOne({_id:objectId(orderId)},
+        {
+            $set:{status:'placed online',Payment:'online Payment'}
+        }).then(()=>
+        {
+            res()
+        })
+    })
  }
 
    

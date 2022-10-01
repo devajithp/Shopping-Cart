@@ -227,9 +227,12 @@ router.post("/orderPlacedOnline",verifyLogin,async (req,res)=>
    userHelpers.addToOrder(DeliveryAddress,userId).then((result)=>
    {
     let orderId=result.insertedId;
-    console.log(orderId);
-     userHelpers.generateRazorpay(orderId,totalPrice).then((order)=>
+    
+     userHelpers.generateRazorpay(orderId,totalPrice).then( async(order)=>
      {
+      let user=req.session.user;
+      let userId=user._id
+      await userHelpers.removeCart(userId)
       console.log(order)
       res.json(order)
      })
@@ -239,10 +242,8 @@ router.post("/orderPlacedOnline",verifyLogin,async (req,res)=>
     
 
       
-      /*userHelpers.removeCart(userId).then(()=>
-      {
-        res.render("user/orderSuccess",{admin:false,user})
-      })*/
+     
+      
       
       
    })
@@ -263,6 +264,29 @@ router.get("/getOrders",verifyLogin,(req,res)=>
       res.redirect("/")
     }
   })
+})
+router.post("/verify-payment",verifyLogin,(req,res)=>
+{
+  console.log(req.body)
+  userHelpers.verifyPayment(req.body).then(()=>
+  {
+    console.log("verifyPayment called")
+    userHelpers.changeOrderStatus(req.body['order[receipt]']).then(()=>
+    {
+      console.log(req.body['order[receipt]'])
+      console.log("status changed")
+      
+      res.json({status:true})
+    })
+  }).catch((err)=>
+  {
+     res.json({status:false})
+  })
+})
+router.get('/orderSuccess-online',verifyLogin,(req,res)=>
+{
+  let user=req.session.user;
+  res.render('user/orderSuccessOnline',{admin:false,user})
 })
 
 module.exports = router;
