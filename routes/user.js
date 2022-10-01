@@ -68,23 +68,44 @@ router.get("/cart",verifyLogin,(req,res)=>
    let user=req.session.user
    userHelpers.getCart(user._id).then((cartItems)=>
    {
-    userHelpers.getCartWithoutAggregate(user._id).then((cart)=>
+    if(cartItems)
     {
-      
-      let Product=cart.Product
-      if(Product.length>=1)
+    userHelpers.getCartWithoutAggregate(user._id).then((cart)=>
+    { 
+      userHelpers.getTotalAmount(user._id).then((total)=>
       {
-        console.log(cartItems)
-        res.render("user/cart",{admin:false,user,cartItems})
-      }
-      else{
-        res.redirect("/")
-      }
+        if(total)
+        {
+          totalAmount=total.totalAmount
+        }
+        else{
+          totalAmount=0;
+        }
+        if(cart)
+        {
+          let Product=cart.Product
+          if(Product.length>=1)
+          {
+            console.log(cartItems)
+            res.render("user/cart",{admin:false,user,cartItems,totalAmount})
+          }
+          else{
+            res.redirect("/")
+          }
+        }
+        else
+         {
+          res.redirect("/")
+         }
+        
+       
+      })
     })
-    
-   
+  }
+  else{
+    res.redirect("/")
+  }
    })
-    
 })
 router.get("/addtoCart/:id/:Name/:Price",verifyLogin,(req,res)=>
 {
@@ -136,6 +157,12 @@ router.get("/remove/:prodId/:quantity",verifyLogin,(req,res)=>
 router.get("/home",(req,res)=>
 {
   res.redirect("/")
+})
+router.get("/order/:total",verifyLogin,(req,res)=>
+{
+  let user=req.session.user
+  let total=req.params.total
+  res.render("user/order",{total,admin:false,user})
 })
 
 module.exports = router;

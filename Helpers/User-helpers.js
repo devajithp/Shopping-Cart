@@ -64,8 +64,8 @@ module.exports={
             let user= await db.get().collection(collection.getCartCollection).findOne({user:userId})
             if(user)
             {
-                let count=await db.get().collection(collection.getCartCollection).find({"Product.prodId":productId}).count()
-                
+                db.get().collection(collection.getCartCollection).find({user:userId,"Product.prodId":productId}).count().then((count)=>
+                {
                     if(count!=0)
                     {
                         
@@ -86,6 +86,9 @@ module.exports={
                         })
                         
                     }
+                })
+                
+                    
                 
                 
                 
