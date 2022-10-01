@@ -24,7 +24,7 @@ module.exports={
     return new Promise(async(res,rej)=>
     {
         let user=await db.get().collection(collection.getUserCollection).findOne({Email:userData.Email})
-        console.log(user)
+        
         if(user)
         {
               bcrypt.compare(userData.Password,user.Password).then((status)=>
@@ -167,6 +167,58 @@ module.exports={
 
     })
    
+ },
+ addToOrder: function(DeliveryAddress,userId)
+ {
+    return new Promise(async (res,rej)=>
+    {
+        let cartItems=await db.get().collection(collection.getCartCollection).aggregate([{$match:{user:userId}},{$unwind:"$Product"},{$project:{_id:0,user:0}}]).toArray()
+        let date= new Date();
+        let total=await db.get().collection(collection.getCartCollection).aggregate([{$match:{user:userId}},{$unwind:"$Product"},{$group:{_id:null,totalAmount:{$sum:{$multiply:["$Product.quantity",{$toInt:"$Product.Price"}]}}}}]).toArray()
+        totalAmount=total[0].totalAmount
+       
+        let status="Pending with admin"
+           
+            let Orders={
+                  userId:userId,
+                  total:totalAmount,
+                  date: date,
+                  status,
+                  cartItems,
+                  DeliveryAddress,
+                 }
+    
+                 db.get().collection(collection.getOrderCollection).insertOne(Orders).then((result)=>
+                 {
+                    res(result)
+                 })
+
+
+            })
+        
+
+
+       
+        
+    
+    
+ },
+ getOrderedProductForUser: function(userId)
+ {
+    return new Promise(async (res,rej)=>
+    {
+        let userOrders= await db.get().collection(collection.getOrderCollection).aggregate([{$match:{userId:userId}}]).toArray()
+        
+        res(userOrders)
+    })
+ },
+ removeCart: function(userId)
+ {
+    return new Promise(async (res,rej)=>
+    {
+        await db.get().collection(collection.getCartCollection).deleteOne({user:userId})
+        res()
+    })
  }
 
    

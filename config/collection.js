@@ -5,5 +5,7 @@ module.exports={
 
     getAdminCollection:"admin",
 
-    getCartCollection: "cart"
+    getCartCollection: "cart",
+
+    getOrderCollection: "orders"
 }

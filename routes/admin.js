@@ -52,7 +52,7 @@ router.post("/add-product",(req,res)=>
 router.get("/edit-product/:id",(req,res)=>
 {
   let prodId=req.params.id;
-  console.log(prodId)
+  
   productHelpers.editProduct(prodId).then((editingProduct)=>
   {
      console.log(editingProduct)
@@ -77,10 +77,10 @@ router.post("/edit-product/:id", (req,res)=>
 router.get('/delete-product/:id',(req,res)=>
 {
   let prodId=req.params.id;
-  console.log(prodId)
+ 
   productHelpers.deleteProduct(prodId).then((status)=>
   {
-    console.log(status)
+    
     res.redirect("/admin/")
   })
 })
@@ -107,7 +107,33 @@ router.get("/logout",(req,res)=>
   res.redirect("/admin/")
 
 })
-
+router.get("/orders",verifyLogin,(req,res)=>
+{
+  adminHelpers.getOrders().then((orders)=>
+  {
+    
+    res.render("admin/adminOrders",{admin:true,orders})
+  })
+ 
+})
+router.post("/confirmOrder",verifyLogin,(req,res)=>
+{
+  
+  let cartId=req.body.cartId
+  
+  adminHelpers.confirmOrder(cartId).then((response)=>
+  {
+    res.json(response)
+  })
+})
+router.post("/cancelOrder",verifyLogin,(req,res)=>
+{
+  let cartId=req.body.cartId
+  adminHelpers.cancelOrder(cartId).then((response)=>
+  {
+    res.json(response)
+  })
+})
 
 
 

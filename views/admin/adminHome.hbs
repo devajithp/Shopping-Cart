@@ -1,16 +1,21 @@
 <div class="section">
+    
 
     
   <div class="container">
-
-         <table class="table mt-5">
+  <a  class="btn btn-secondary mt-4" href="/admin/add-product">AddProduct</a>
+     <div class="row">
+         <div class="xs-4 col-sm-4 col-md-12 col-lg-12 col-xl-12 ">
+            <div style="overflow-x:auto;">
+         <table class="table mt-5" id="table_id">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Image</th>
                     <th>Description</th>
-                    <th><a class="btn btn-secondary" href="/admin/add-product">AddProduct</a></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +32,16 @@
                
             </tbody>
          </table>
-
+         </div>
+   </div>
+  </div>
   </div>
 </div>
+
+<script>
+
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+
+</script>

@@ -1,5 +1,6 @@
 const { response } = require('express');
 var express = require('express');
+const collection = require('../config/collection');
 var router = express.Router();
 var productHelpers= require("../Helpers/Product-helpers")
 var userHelpers=require("../Helpers/User-helpers")
@@ -86,16 +87,16 @@ router.get("/cart",verifyLogin,(req,res)=>
           let Product=cart.Product
           if(Product.length>=1)
           {
-            console.log(cartItems)
+            
             res.render("user/cart",{admin:false,user,cartItems,totalAmount})
           }
           else{
-            res.redirect("/")
+            res.render("user/EmptyCart",{admin:false,user})
           }
         }
         else
          {
-          res.redirect("/")
+          res.render("user/EmptyCart",{admin:false,user})
          }
         
        
@@ -103,7 +104,7 @@ router.get("/cart",verifyLogin,(req,res)=>
     })
   }
   else{
-    res.redirect("/")
+    res.render("user/EmptyCart",{admin:false,user})
   }
    })
 })
@@ -113,7 +114,7 @@ router.get("/addtoCart/:id/:Name/:Price",verifyLogin,(req,res)=>
   let prodId=req.params.id;
   let prodName=req.params.Name;
   let prodPrice=req.params.Price;
-  console.log(prodId,prodName,prodPrice,userId)
+  
   userHelpers.AddtoCart(prodId,prodName,prodPrice,userId).then(()=>
   {
     res.redirect("/")
@@ -125,7 +126,7 @@ router.get("/decrement/:prodId/:quantity",verifyLogin,(req,res)=>
   let prodId=req.params.prodId;
   let userId=req.session.user._id;
   let quantity=req.params.quantity;
-  console.log(prodId,userId,quantity)
+ 
   userHelpers.decrementQuantity(userId,prodId,quantity).then(()=>
   {
     res.redirect("/cart")
@@ -136,7 +137,7 @@ router.get("/increment/:prodId/:quantity",verifyLogin,(req,res)=>
   let userId=req.session.user._id;
   let prodId=req.params.prodId;
   let quantity=req.params.quantity;
-  console.log(userId,prodId,quantity)
+  
   userHelpers.incrementQuantity(userId,prodId,quantity).then(()=>
   {
     res.redirect("/cart")
@@ -147,7 +148,7 @@ router.get("/remove/:prodId/:quantity",verifyLogin,(req,res)=>
   let userId=req.session.user._id;
   let prodId=req.params.prodId;
   let quantity=req.params.quantity;
-  console.log(userId,prodId,quantity)
+  
   userHelpers.removeProduct(userId,prodId,quantity).then(()=>
   {
     res.redirect("/cart")
@@ -163,6 +164,62 @@ router.get("/order/:total",verifyLogin,(req,res)=>
   let user=req.session.user
   let total=req.params.total
   res.render("user/order",{total,admin:false,user})
+})
+router.post("/orderSummary",verifyLogin,async (req,res)=>
+{
+  let DeliveryDetails=req.body
+  
+  let user=req.session.user
+  let userId=user._id
+  
+  let total=await userHelpers.getTotalAmount(userId)
+  if(DeliveryDetails.paymentOption=="COD")
+  {
+    userHelpers.getCart(userId).then((cartItems)=>
+    {
+     
+      res.render("user/orderSummary",{total,admin:false,cartItems,user,DeliveryDetails})
+    })
+  }
+  else{
+  res.redirect("/")
+  }
+
+})
+router.post("/orderPlaced",verifyLogin,(req,res)=>
+{
+   let user=req.session.user
+   let userId=user._id
+   let DeliveryAddress=req.body;
+   
+   
+   userHelpers.addToOrder(DeliveryAddress,userId).then((result)=>
+   {
+      
+      userHelpers.removeCart(userId).then(()=>
+      {
+        res.render("user/orderSuccess",{admin:false,user})
+      })
+      
+      
+   })
+  
+})
+router.get("/getOrders",verifyLogin,(req,res)=>
+{
+  let user= req.session.user
+  let userId=user._id
+  userHelpers.getOrderedProductForUser(userId).then((userOrder)=>
+  {
+    if(userOrder)
+    {
+    res.render("user/getOrders",{userOrder,admin:false,user})
+    }
+    else
+    {
+      res.redirect("/")
+    }
+  })
 })
 
 module.exports = router;

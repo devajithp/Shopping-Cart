@@ -32,6 +32,37 @@ module.exports=
                    res(null)
          }
        })
+      },
+      getOrders: function()
+      {
+        return new Promise(async (res,rej)=>
+        {
+          let orders=await db.get().collection(collection.getOrderCollection).aggregate().toArray()
+          res(orders)
+        })
+        
+      },
+      confirmOrder:function(cartId)
+      {
+        return new Promise( (res,rej)=>
+        {
+          db.get().collection(collection.getOrderCollection).updateOne({_id:objectId(cartId)},{$set:{status:"Confirmed and shipped"}}).then((response)=>
+          {
+            res(response)
+          })
+   
+        })
+      },
+      cancelOrder: function(cartId)
+      {
+        return new Promise( (res,rej)=>
+        {
+          db.get().collection(collection.getOrderCollection).updateOne({_id:objectId(cartId)},{$set:{status:"Order Cancelled"}}).then((response)=>
+          {
+            res(response)
+          })
+   
+        })
       }
 
 }

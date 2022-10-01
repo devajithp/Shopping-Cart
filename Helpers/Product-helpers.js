@@ -24,7 +24,7 @@ module.exports=
           {
             let products=await db.get().collection(collection.getProductCollection).find().toArray()
             
-              console.log(products)
+              
               res(products)
             
           })
@@ -62,7 +62,7 @@ module.exports=
               db.get().collection(collection.getProductCollection).deleteOne({_id:objectId(prodId)}).then((status)=>
               {
                 res(status)
-                console.log(status)
+                
               })
             
                  
