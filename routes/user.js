@@ -181,20 +181,28 @@ router.post("/orderSummary",verifyLogin,async (req,res)=>
       res.render("user/orderSummary",{total,admin:false,cartItems,user,DeliveryDetails})
     })
   }
-  else{
-  res.redirect("/")
+  else if(DeliveryDetails.paymentOption=="Online"){
+    userHelpers.getCart(userId).then((cartItems)=>
+    {
+     
+      res.render("user/orderSummaryOnline",{total,admin:false,cartItems,user,DeliveryDetails})
+    })
   }
 
 })
-router.post("/orderPlaced",verifyLogin,(req,res)=>
+router.post("/orderPlaced",verifyLogin,async(req,res)=>
 {
    let user=req.session.user
    let userId=user._id
    let DeliveryAddress=req.body;
+   let total=await userHelpers.getTotalAmount(userId)
+   let totalPrice=total.totalAmount;
+   console.log(totalPrice)
    
    
    userHelpers.addToOrder(DeliveryAddress,userId).then((result)=>
    {
+      console.log(result.insertedId)
       
       userHelpers.removeCart(userId).then(()=>
       {
@@ -205,6 +213,41 @@ router.post("/orderPlaced",verifyLogin,(req,res)=>
    })
   
 })
+router.post("/orderPlacedOnline",verifyLogin,async (req,res)=>
+{
+   let user=req.session.user
+   let userId=user._id
+   let DeliveryAddress=req.body;
+   
+   
+   
+   let total=await userHelpers.getTotalAmount(userId)
+   let totalPrice=total.totalAmount;
+   console.log(totalPrice);
+   userHelpers.addToOrder(DeliveryAddress,userId).then((result)=>
+   {
+    let orderId=result.insertedId;
+    console.log(orderId);
+     userHelpers.generateRazorpay(orderId,totalPrice).then((order)=>
+     {
+      console.log(order)
+      res.json(order)
+     })
+    
+    
+   })
+    
+
+      
+      /*userHelpers.removeCart(userId).then(()=>
+      {
+        res.render("user/orderSuccess",{admin:false,user})
+      })*/
+      
+      
+   })
+  
+
 router.get("/getOrders",verifyLogin,(req,res)=>
 {
   let user= req.session.user
