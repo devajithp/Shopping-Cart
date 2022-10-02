@@ -28,6 +28,7 @@ similary the product datas are displayed in userhome page as cards. And for each
 By clicking to add cart product details are passed as params and send to the server as request and this req.body is saved in the cart collection in database. The structure how data stored in cart is given below <br><br>
 ![alt text](https://user-images.githubusercontent.com/114420318/193446769-9774dfaf-21a9-4d79-b0f7-98ed16fc5ee1.png)<br><br>
 Each user have a document with unique cart id. Inside the document user id also there which is passed as the result of params.If the user have no document inside the cart collection then after clicking add to cart, a document is created for user in cart. if the user already have document in the cart then clicking 'add to cart' will update by pushing the product details to product array in user's cart document after matching the userId. Then this cart details are displayed in cart page as the response from the server.<br><br>
-
+![alt text](https://user-images.githubusercontent.com/114420318/193447114-55772c23-d185-4bc3-9197-4456138ed27e.png)<br><br>
+Quantity Increment and decrement buttons also provided along with it After clicking this button productId is of corresponding product and its quantity is passed as the request to server. after matching userId and productId using mongo query the quantity can be incremented or decremented. quantity will increment for increment button and decrement for decrement button. and as response the page with redirected and changes get reflected.<br><br>
 
 
