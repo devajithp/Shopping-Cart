@@ -15,4 +15,5 @@ user sign up hbs file is created in user folder in view folder. sign up form is 
 ![alt text](https://user-images.githubusercontent.com/114420318/193441981-af5c431e-b8e0-43e2-ba05-614ef5a125d8.png)<br>br>
 login page also created. in login form after submit request will sent to the server . in server side it will verify user email adress and password. the password is compared by using compare method of bcrypt module. then login is completed and in session we pass this user details and set userLogged in status as true. whenever the user is logouting then the session get destroyed.
 ![alt text](https://user-images.githubusercontent.com/114420318/193442214-d35023b1-10e0-4e4e-9796-6be12cddf6bf.png)<br><br>
-similarly admin login page and admin session has created
+similarly admin login page and admin session has created. for admin sign up page is note provided the admin details are pre-seted in the database.<br><br>
+<ins>products adding</ins>
