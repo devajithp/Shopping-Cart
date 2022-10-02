@@ -24,6 +24,10 @@ Using HTTP GET API, I Displayed the product details in adminHome portal as table
 Edit and delete buttons are provided along with the products in admin portal. for each button product id is passed as parameter. so that it will go as request to server and we can access it by req.params . By matching the product id in product collection in database mongo we can update the product details or delete the product.<br><br>
 similary the product datas are displayed in userhome page as cards. And for each card addToCart button is provided and product details are passed in button as params.<br><br>
 ![alt text](https://user-images.githubusercontent.com/114420318/193445426-7a426b94-91e8-460b-acf9-9f78ef90475e.png)<br><br>
+<ins>Add to Cart</ins><br><br>
+By clicking to add cart product details are passed as params and send to the server as request and this req.body is saved in the cart collection in database. The structure how data stored in cart is given below <br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193446769-9774dfaf-21a9-4d79-b0f7-98ed16fc5ee1.png)<br><br>
+Each user have a document with unique cart id. Inside the document user id also there which is passed as the result of params.If the user have no document inside the cart collection then after clicking add to cart, a document is created for user in cart. if the user already have document in the cart then clicking 'add to cart' will update by pushing the product details to product array in user's cart document after matching the userId. Then this cart details are displayed in cart page as the response from the server.<br><br>
 
 
 
