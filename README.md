@@ -17,11 +17,13 @@ To generate session express-session module is installed and required it in the a
 user sign up hbs file is created in user folder in view folder. sign up form is created . method of form set to POST. after submitting the form , name ,email, password.etc  are sended as request to server . using bcrypt module of node the password is decrypted and all these datas are stored to user collection in database.
 <br><br>
 
-![alt text](https://user-images.githubusercontent.com/114420318/193441981-af5c431e-b8e0-43e2-ba05-614ef5a125d8.png)<br>br>
 
-login page also created. in login form after submit request will sent to the server . in server side it will verify user email adress and password. the password is compared by using compare method of bcrypt module. then login is completed and in session we pass this user details and set userLogged in status as true. whenever the user is logouting then the session get destroyed.
+![alt text](https://user-images.githubusercontent.com/114420318/193453962-087b4252-8cb2-4d77-8d66-662e090ebd0b.png)<br><br>
 
-![alt text](https://user-images.githubusercontent.com/114420318/193442214-d35023b1-10e0-4e4e-9796-6be12cddf6bf.png)<br><br>
+login page also created. in login form after submit request will sent to the server . in server side it will verify user email adress and password. the password is compared by using compare method of bcrypt module. then login is completed and in session we pass this user details and set userLogged in status as true. whenever the user is logouting then the session get destroyed.<br><br>
+
+![alt text](https://user-images.githubusercontent.com/114420318/193453988-160410ec-343c-484f-a5ef-37589675acb5.png)<br><br>
+
 
 similarly admin login page and admin session has created. for admin sign up page is note provided the admin details are pre-seted in the database.<br><br>
 <ins>Products adding</ins><br><br>
