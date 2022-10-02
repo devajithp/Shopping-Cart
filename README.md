@@ -22,4 +22,8 @@ Add product page is created in admin portal there we can add product details wit
 Using HTTP GET API, I Displayed the product details in adminHome portal as table by getting product datas from data base. since it is in array format, I use "each" to iterate the data. and image of corresponding product is added from public folder by using it filename which is the product id.<br><br>
 ![alt text](https://user-images.githubusercontent.com/114420318/193445023-a9ceb9a1-af04-42aa-9c8f-173281906638.png)<br><br>
 Edit and delete buttons are provided along with the products in admin portal. for each button product id is passed as parameter. so that it will go as request to server and we can access it by req.params . By matching the product id in product collection in database mongo we can update the product details or delete the product.<br><br>
+similary the product datas are displayed in userhome page as cards. And for each card addToCart button is provided and product details are passed in button as params.<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193445426-7a426b94-91e8-460b-acf9-9f78ef90475e.png)<br><br>
+
+
 
