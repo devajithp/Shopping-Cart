@@ -29,7 +29,8 @@ similarly admin login page and admin session has created. for admin sign up page
 <ins>Products adding</ins><br><br>
 Add product page is created in admin portal there we can add product details with image of product .For uploading image to server express-fileupload module has downloaded and required it in the app.js file and it is used. after submitting the form of add product data has been sented to server as the request. the image can be accessed by req.files.(name of image mentioned in form). this data is given to the products collection in data base and unique id is generated for each product that we add. using this unique id as the name of the product image , we stored it in the product image folder of public folder.So that every product have image with unique file name. After adding another product an array of products are made in product collection in database.<br><br>
 
-![alt text](https://user-images.githubusercontent.com/114420318/193444590-ce04429d-9512-4e6d-8474-886529b5bb31.png)<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193454147-d401f909-f09c-41eb-aaf0-a8ca10201132.png)<br><br>
+
 
 Using HTTP GET API, I Displayed the product details in adminHome portal as table by getting product datas from data base. since it is in array format, I use "each" to iterate the data. and image of corresponding product is added from public folder by using it filename which is the product id.<br><br>
 
