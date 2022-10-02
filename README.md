@@ -29,6 +29,13 @@ By clicking to add cart product details are passed as params and send to the ser
 ![alt text](https://user-images.githubusercontent.com/114420318/193446769-9774dfaf-21a9-4d79-b0f7-98ed16fc5ee1.png)<br><br>
 Each user have a document with unique cart id. Inside the document user id also there which is passed as the result of params.If the user have no document inside the cart collection then after clicking add to cart, a document is created for user in cart. if the user already have document in the cart then clicking 'add to cart' will update by pushing the product details to product array in user's cart document after matching the userId. Then this cart details are displayed in cart page as the response from the server.<br><br>
 ![alt text](https://user-images.githubusercontent.com/114420318/193447114-55772c23-d185-4bc3-9197-4456138ed27e.png)<br><br>
-Quantity Increment and decrement buttons also provided along with it After clicking this button productId is of corresponding product and its quantity is passed as the request to server. after matching userId and productId using mongo query the quantity can be incremented or decremented. quantity will increment for increment button and decrement for decrement button. and as response the page with redirected and changes get reflected.<br><br>
-
-
+Quantity Increment and decrement buttons also provided along with it After clicking this button productId is of corresponding product and its quantity is passed as the request to server. after matching userId and productId using mongo query the quantity can be incremented or decremented. quantity will increment for increment button and decrement for decrement button. and as response the page with redirected and changes get reflected. mongo query to get total amount also written<br><br>
+<ins>Order</ins>
+By clicking the place order as response it will render hbs page of giving delivery address. in this page we can select the payment option of COD or online payment<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193449365-71725fd6-f01d-46ef-aa2e-a8a527a5a8b3.png)<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193449382-9357bb6b-2ae4-4f20-a049-11ac2a26bac5.png)<br><br>
+After submitting page will go to confirmation page. After clicking confirm  the delivery details , product details, user details etc.. get stored in order collection of database. every document in the order collection have unique orderId,userid, date of order total amount ,product details etc... The format of document in order collection is given below<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193449451-a40689ed-bf03-4a72-babd-3db30d5f745d.png)<br><br>
+After details goes to order collection. for COD order will get placed directly. order details collected from data base and display it in the user portal's order only after writting mongo query of userId match. In admin's portal order documents from the order collection is directly displayed.<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193449910-a787b90f-392a-4424-aac1-6c67d21cd9ea.png)<br><br>
+![alt text](https://user-images.githubusercontent.com/114420318/193449927-68cd2ca8-870c-479e-9942-79c56c15ab12.png)<br><br>
