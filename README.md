@@ -40,3 +40,6 @@ After details goes to order collection. for COD order will get placed directly. 
 ![alt text](https://user-images.githubusercontent.com/114420318/193449910-a787b90f-392a-4424-aac1-6c67d21cd9ea.png)<br><br>
 ![alt text](https://user-images.githubusercontent.com/114420318/193449927-68cd2ca8-870c-479e-9942-79c56c15ab12.png)<br><br>
 On admin portal's order confirm and cancel order button is provided. by default after order status is "pending with admin" for COD after clicking  button status will change. This is done through Ajax. A function with orderId has parameter hs given in onclick of button. on clicking the button function get called and ajax is defined in function and url, data and method as post is set in the ajax. this data is sended to server as the request and mongo query is written to update status by matching the orderId. response is sent back as json and in success ajax will reload the page and changed are reflected.
+<br><br>
+<ins>Online Payment</ins><br><br>
+Online payment is setted up through test mode of razorpay.
