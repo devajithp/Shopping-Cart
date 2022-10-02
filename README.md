@@ -9,6 +9,11 @@ Partials are used for user and admin .Because both will have different interface
 ![alt text](https://user-images.githubusercontent.com/114420318/193441385-f15f7f19-fea1-43fa-9522-6f939f8518d8.jpg)<br>
 Bootsrap libraries j query libraries are provided in layout.hbs file<br><br>
 <ins>User Sign Up and login and admin login , session</ins><br><br>
+To generate session express-session module is installed and required it in the app.js file. Session is used in app.js, key and cookie max age also defined.<br>
+user sign up hbs file is created in user folder in view folder. sign up form is created . method of form set to POST. after submitting the form , name ,email, password.etc  are sended as request to server . using bcrypt module of node the password is decrypted and all these datas are stored to user collection in database.
+<br><br>
+
+
 
 
 
