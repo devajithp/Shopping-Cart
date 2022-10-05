@@ -1,6 +1,14 @@
 # Shopping-Cart
 
 Source code is uploaded in Master Branch.<br><br>
+
+## Stacks used
+Nodejs-Express -Backend<br>
+MongoDB- database<br>
+HTML<br>
+CSS<br>
+Bootstrap<br>
+Ajax<br><br>
 <ins>Initial setup and Mongo connection</ins><br>
 <br>
 The code is builded using Visual studio code and is written in node js . To initialize and setup new node package "npm init command" is used. npm install command is used to intsall the npm modules to package.<br><br> Express generator hbs is used to create project layout suitable to build a E-commerce web Applcation, for that "npx express-generator --hbs" command is used. After that a config folder and helper folder is created. config folder to configure the mongodb connection and helper folder having js files with functions which is then called from js file in routes. <br>
