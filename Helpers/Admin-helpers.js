@@ -5,6 +5,34 @@ var objectId = require("mongodb").ObjectID
 
 module.exports=
 {
+
+    addAdminCred: function()
+    {
+        return new Promise((res,rej)=>
+        {
+          let adminDetails={
+            Email:"devajithmr@gmail.com",
+            Password:"12345"
+
+          }
+          db.get().collection(collection.getAdminCollection).findOne({Email:"devajithmr@gmail.com"}).then((data)=>
+          {
+            if(data)
+            {
+                 console.log("admin data is already present")
+                 res(data)
+            }
+            else{
+              db.get().collection(collection.getAdminCollection).insertOne(adminDetails).then((data)=>
+          {
+             res(data)
+          })
+            }
+          })
+          
+        })
+    },
+
     doLogin: function(adminData)
     {
       return new Promise(async(res,rej)=>

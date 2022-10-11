@@ -20,6 +20,7 @@ const verifyLogin=function(req,res,next)
 
 router.get('/',verifyLogin, function(req, res, next) {
   
+  
   productHelpers.getProduct().then((product)=>
   {
       

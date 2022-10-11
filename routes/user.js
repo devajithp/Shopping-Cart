@@ -4,6 +4,7 @@ const collection = require('../config/collection');
 var router = express.Router();
 var productHelpers= require("../Helpers/Product-helpers")
 var userHelpers=require("../Helpers/User-helpers")
+var adminHelpers=require("../Helpers/Admin-helpers")
 
 const verifyLogin=function(req,res,next)
 {
@@ -17,7 +18,9 @@ const verifyLogin=function(req,res,next)
   }
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
+
+  await adminHelpers.addAdminCred()
   let user=req.session.user
   productHelpers.getProduct().then((product)=>
   {
