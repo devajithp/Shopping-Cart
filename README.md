@@ -1,8 +1,9 @@
 # Shopping-Cart
 
 Source code is uploaded in Master Branch.<br><br>
-
-## Stacks used
+### Web site link (hosted in heroku)
+https://yourshoppingfriend.herokuapp.com/  <br><br>
+### Stacks used
 Nodejs-Express -Backend<br>
 MongoDB- database<br>
 HTML<br>
