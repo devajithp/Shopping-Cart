@@ -19,10 +19,12 @@ seperate js file for admin and user are provided in routes.<br><br>
 
 Partials are used for user and admin .Because both will have different interface header<br><br>
 
-![alt text](https://user-images.githubusercontent.com/114420318/193441378-cd946ee4-eddd-4f11-a314-63d4684cb767.jpg)<br>
-![alt text](https://user-images.githubusercontent.com/114420318/193441385-f15f7f19-fea1-43fa-9522-6f939f8518d8.jpg)<br>
+![user header](https://user-images.githubusercontent.com/114420318/196028414-2a7ff3a2-fb09-4980-ad30-a231e5233b93.png)<br><br>
 
-Bootsrap libraries jQuery libraries are provided in layout.hbs file<br><br>
+![admin header](https://user-images.githubusercontent.com/114420318/196028436-55f24386-8911-4ad1-8f52-01479283318c.png)<br><br>
+
+
+Bootsrap libraries, jQuery libraries are provided in layout.hbs file<br><br>
 ### <ins>User Sign Up and login and admin login , session</ins><br><br>
 To generate session, express-session module is installed and required it in the app.js file. Session is used in app.js, key and cookie max age also defined.<br><br>
 User signup hbs file is created in user folder in view folder. Signup form is created . Method of form set to POST.<br><br> After submitting the form , name ,email, password.etc  are sended as request to server .Using bcrypt module of node the password is decrypted and all these datas are stored to user collection in database.
