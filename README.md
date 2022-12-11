@@ -2,7 +2,7 @@
 
 Source code is uploaded in Master Branch.<br><br>
 ### Web site link (hosted in Render)
-https://djshoppingcart.onrender.com/  <br><br>
+https://djshoppingcart.onrender.com/login  <br><br>
 ### Stacks used
 Nodejs-Express -Backend<br>
 MongoDB- database<br>
